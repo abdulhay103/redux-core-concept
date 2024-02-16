@@ -1,33 +1,50 @@
 const { createStore } = require("redux");
 
-//Global Variable
+// Global Variable
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
+const RESET = "RESET";
 
-// state
-const initalConterState = {
+// States
+const initialCounterState = {
   count: 0,
 };
-const initalUsersState = {
-  users: [{ name: "Abdul Hay" }],
+
+// Actions
+const incrementAction = () => {
+  return {
+    type: INCREMENT,
+  };
+};
+const decrementAction = () => {
+  return {
+    type: DECREMENT,
+  };
+};
+const resetAction = () => {
+  return {
+    type: RESET,
+  };
 };
 
-//action
-const incrementCounter = () => {
-  return { type: INCREMENT };
-};
-const decrementCounter = () => {
-  return { type: DECREMENT };
-};
-
-// Reducer
-const counterReducer = (state = initalConterState, action) => {
+// Reducers
+const counterReducer = (state = initialCounterState, action) => {
   switch (action.type) {
     case INCREMENT:
-      return { ...state, count: state.count + 1 };
-
+      return {
+        ...state,
+        count: state.count + 1,
+      };
     case DECREMENT:
-      return { ...state, count: state.count - 1 };
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case RESET:
+      return {
+        ...state,
+        count: 0,
+      };
 
     default:
       state;
@@ -37,13 +54,15 @@ const counterReducer = (state = initalConterState, action) => {
 // Create Store
 const store = createStore(counterReducer);
 
-// Subscribe Store
+// Use createStore's methods
+
 store.subscribe(() => {
   console.log(store.getState());
 });
 
-// Dispatch a action
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(decrementCounter());
+store.dispatch(incrementAction());
+store.dispatch(incrementAction());
+store.dispatch(incrementAction());
+store.dispatch(decrementAction());
+store.dispatch(resetAction());
+store.dispatch(incrementAction());
