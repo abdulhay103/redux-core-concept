@@ -1,10 +1,12 @@
-const { createStore } = require("redux");
+const { default: axios } = require("axios");
+const { createStore, applyMiddleware } = require("redux");
+const { thunk } = require("redux-thunk");
 
 // Global Variables
 const GET_TODOS = "GET_TODOS";
 const SUCCESS_TODO = "SUCCESS_TODO";
 const ERROR_TODO = "ERROR_TODO";
-const API_URL = "https://jsonplaceholder.typicode.com/todos";
+const API_URL = "https://jsonplaceholder.typicode.com/todo";
 
 // States Define
 const initialTodosState = {
@@ -58,12 +60,26 @@ const todosReducer = (state = initialTodosState, action) => {
   }
 };
 
+// Fetch Datas
+const fetchDatas = () => {
+  return (dispatch) => {
+    dispatch(getTodos());
+    axios
+      .get(API_URL)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+};
+
 // Create Store
-const store = createStore(todosReducer);
+const store = createStore(todosReducer, applyMiddleware(thunk));
 
 store.subscribe(() => {
-  console.log(store.getState);
+  console.log(store.getState());
 });
 
-store.dispatch(getTodos());
-store.dispatch(successTodo("hello"));
+store.dispatch(fetchDatas());
