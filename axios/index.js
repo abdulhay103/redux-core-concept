@@ -67,7 +67,9 @@ const fetchDatas = () => {
     axios
       .get(API_URL)
       .then((res) => {
-        console.log(res.data);
+        const datas = res.data;
+        const titles = datas.map((data) => data.title);
+        console.log(titles);
       })
       .catch((error) => {
         console.log(error.message);
