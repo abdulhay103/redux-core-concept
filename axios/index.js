@@ -69,10 +69,10 @@ const fetchDatas = () => {
       .then((res) => {
         const datas = res.data;
         const titles = datas.map((data) => data.title);
-        console.log(titles);
+        dispatch(successTodo(titles));
       })
       .catch((error) => {
-        console.log(error.message);
+        dispatch(error.message);
       });
   };
 };
