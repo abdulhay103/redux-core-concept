@@ -6,7 +6,7 @@ const { thunk } = require("redux-thunk");
 const GET_TODOS = "GET_TODOS";
 const SUCCESS_TODO = "SUCCESS_TODO";
 const ERROR_TODO = "ERROR_TODO";
-const API_URL = "https://jsonplaceholder.typicode.com/todo";
+const API_URL = "https://jsonplaceholder.typicode.com/todos";
 
 // States Define
 const initialTodosState = {
